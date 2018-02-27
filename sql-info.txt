@@ -1,0 +1,177 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:8889
+-- Generation Time: Feb 27, 2018 at 12:58 AM
+-- Server version: 5.6.35
+-- PHP Version: 7.0.15
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `airline`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cities`
+--
+
+CREATE TABLE `cities` (
+  `id` int(11) NOT NULL,
+  `city_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cities`
+--
+
+INSERT INTO `cities` (`id`, `city_name`) VALUES
+(1, 'Madrid'),
+(2, 'Toronto'),
+(3, 'Arizona'),
+(4, 'California'),
+(5, 'Colorado'),
+(6, 'Minnesota'),
+(7, 'Texas');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flights`
+--
+
+CREATE TABLE `flights` (
+  `flight_id` int(11) NOT NULL,
+  `deparure_city_id` int(11) NOT NULL,
+  `arrival_city_id` int(11) NOT NULL,
+  `arrival_time` datetime NOT NULL,
+  `departure_time` datetime NOT NULL,
+  `is_delayed` tinyint(1) NOT NULL,
+  `available_rows_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `flights`
+--
+
+INSERT INTO `flights` (`flight_id`, `deparure_city_id`, `arrival_city_id`, `arrival_time`, `departure_time`, `is_delayed`, `available_rows_id`) VALUES
+(1, 1, 2, '2018-02-01 00:00:00', '2018-02-02 00:00:00', 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flights_passengers`
+--
+
+CREATE TABLE `flights_passengers` (
+  `passenger_id` int(11) NOT NULL,
+  `flight_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `flights_passengers`
+--
+
+INSERT INTO `flights_passengers` (`passenger_id`, `flight_id`) VALUES
+(1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `passengers`
+--
+
+CREATE TABLE `passengers` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `row_number` int(11) DEFAULT NULL,
+  `seat_letter` char(2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `passengers`
+--
+
+INSERT INTO `passengers` (`id`, `first_name`, `last_name`, `row_number`, `seat_letter`) VALUES
+(1, 'tyler', 'wickline', NULL, NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `cities`
+--
+ALTER TABLE `cities`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `flights`
+--
+ALTER TABLE `flights`
+  ADD PRIMARY KEY (`flight_id`),
+  ADD KEY `id_flight_number` (`flight_id`,`deparure_city_id`,`arrival_city_id`),
+  ADD KEY `deparure_city_id` (`deparure_city_id`),
+  ADD KEY `arrival_city_id` (`arrival_city_id`);
+
+--
+-- Indexes for table `flights_passengers`
+--
+ALTER TABLE `flights_passengers`
+  ADD PRIMARY KEY (`passenger_id`),
+  ADD KEY `flight_id` (`flight_id`);
+
+--
+-- Indexes for table `passengers`
+--
+ALTER TABLE `passengers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `cities`
+--
+ALTER TABLE `cities`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `flights`
+--
+ALTER TABLE `flights`
+  MODIFY `flight_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `flights_passengers`
+--
+ALTER TABLE `flights_passengers`
+  MODIFY `passenger_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `passengers`
+--
+ALTER TABLE `passengers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `flights`
+--
+ALTER TABLE `flights`
+
+--
+-- Constraints for table `flights_passengers`
+--
+ALTER TABLE `flights_passengers`
+
+--
+-- Constraints for table `passengers`
+--
+ALTER TABLE `passengers`
